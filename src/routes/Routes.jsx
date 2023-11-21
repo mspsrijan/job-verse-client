@@ -3,6 +3,9 @@ import App from "../App";
 import Login from "../pages/Login";
 import Registration from "../pages/Registration";
 import Error from "../pages/Error";
+import Home from "../pages/Home";
+import AllJobs from "../pages/AllJobs";
+import Blogs from "../pages/Blogs";
 
 const routes = createBrowserRouter([
   {
@@ -12,7 +15,7 @@ const routes = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: "Home",
+        element: <Home></Home>,
       },
       {
         path: "/login",
@@ -21,6 +24,14 @@ const routes = createBrowserRouter([
       {
         path: "/registration",
         element: <Registration></Registration>,
+      },
+      {
+        path: "/all-jobs",
+        element: <AllJobs></AllJobs>,
+      },
+      {
+        path: "/blogs",
+        element: <Blogs></Blogs>,
       },
     ],
   },

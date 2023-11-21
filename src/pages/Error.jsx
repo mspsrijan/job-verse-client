@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Error = () => {
   return (
-    <section className="max-w-4xl min-screen text-center">
+    <section className="max-w-4xl min-h-screen text-center flex flex-col justify-center">
       <h1 className="mb-4 text-7xl lg:text-9xl tracking-tight font-extrabold">
         404
       </h1>
