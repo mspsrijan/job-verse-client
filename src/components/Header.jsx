@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSpring, animated } from "react-spring";
+import { AuthContext } from "../providers/AuthProvider";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   HiSun,
   HiMoon,
@@ -10,7 +11,6 @@ import {
 } from "react-icons/hi2";
 import jobVerseLogo from "../assets/jobverse-logo.png";
 import jobVerseLogoWhite from "../assets/jobverse-logo-white.png";
-import { AuthContext } from "../providers/AuthProvider";
 
 const Header = () => {
   const isDarkModePreferred =
@@ -28,6 +28,11 @@ const Header = () => {
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
 
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const closeDropdown = () => {
+    setDropdownOpen(false);
+  };
+
   const { user, logOut } = useContext(AuthContext);
   const handleSignOut = () => {
     logOut().then().catch();
@@ -39,16 +44,16 @@ const Header = () => {
     setIsMobileNavOpen(!isMobileNavOpen);
   };
 
-  const menuAnimation = useSpring({
-    transform: isMobileNavOpen ? "translateX(0%)" : "translateX(-100%)",
-  });
+  const closeMobileNav = () => {
+    setIsMobileNavOpen(false);
+  };
 
   const navLinks = (
     <>
       <li>
         <Link
           to="/"
-          onClick={toggleMobileNav}
+          onClick={closeMobileNav}
           className="pb-1 border-b-2 border-transparent hover:border-customBlue dark:hover:border-slate-600"
         >
           Home
@@ -58,7 +63,7 @@ const Header = () => {
       <li>
         <Link
           to="/all-jobs"
-          onClick={toggleMobileNav}
+          onClick={closeMobileNav}
           className="pb-1 border-b-2 border-transparent hover:border-customBlue dark:hover:border-slate-600"
         >
           All Jobs
@@ -68,7 +73,7 @@ const Header = () => {
       <li>
         <Link
           to="/blogs"
-          onClick={toggleMobileNav}
+          onClick={closeMobileNav}
           className="pb-1 border-b-2 border-transparent hover:border-customBlue dark:hover:border-slate-600"
         >
           Blogs
@@ -76,6 +81,12 @@ const Header = () => {
       </li>
     </>
   );
+
+  const menuAnimation = {
+    hidden: { x: "-100%" },
+    visible: { x: 0 },
+    exit: { x: "-100%" },
+  };
 
   return (
     <header className="max-w-screen-xl mx-auto py-4 px-4">
@@ -96,7 +107,11 @@ const Header = () => {
               <div className="group relative">
                 <div className="flex gap-2">
                   <div>
-                    <label>
+                    <label
+                      onMouseEnter={() => {
+                        setDropdownOpen(true);
+                      }}
+                    >
                       {user.photoURL ? (
                         <img
                           src={user.photoURL}
@@ -109,44 +124,49 @@ const Header = () => {
                         </button>
                       )}
                     </label>
-                    <ul className="absolute right-0 mt-2 p-4 w-52 border border-slate-100 bg-white rounded-xl shadow-sm dark:bg-slate-800 dark:border-slate-800 space-y-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <li className="p-2.5 text-center font-medium">
-                        {user.displayName}
-                        <hr className="m-2" />
-                      </li>
-                      <li>
-                        <Link
-                          to="/profile"
-                          className="hover:text-customBlue dark:hover:text-slate-200"
-                        >
-                          Profile
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/applied-jobs"
-                          className="hover:text-customBlue dark:hover:text-slate-200"
-                        >
-                          Applied Jobs
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/post-a-job"
-                          className="hover:text-customBlue dark:hover:text-slate-200"
-                        >
-                          Post A Job
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          onClick={handleSignOut}
-                          className="hover:text-customBlue dark:hover:text-slate-200"
-                        >
-                          Logout
-                        </Link>
-                      </li>
-                    </ul>
+                    {dropdownOpen && (
+                      <ul className="absolute right-0 mt-2 p-4 w-52 border border-slate-100 bg-white rounded-xl shadow-sm dark:bg-slate-800 dark:border-slate-800 space-y-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <li className="p-2.5 text-center font-medium">
+                          {user.displayName}
+                          <hr className="m-2" />
+                        </li>
+                        <li>
+                          <Link
+                            to="/profile"
+                            onClick={closeDropdown}
+                            className="hover:text-customBlue dark:hover:text-slate-200"
+                          >
+                            Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/applied-jobs"
+                            onClick={closeDropdown}
+                            className="hover:text-customBlue dark:hover:text-slate-200"
+                          >
+                            Applied Jobs
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/post-a-job"
+                            onClick={closeDropdown}
+                            className="hover:text-customBlue dark:hover:text-slate-200"
+                          >
+                            Post A Job
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            onClick={handleSignOut}
+                            className="hover:text-customBlue dark:hover:text-slate-200"
+                          >
+                            Logout
+                          </Link>
+                        </li>
+                      </ul>
+                    )}
                   </div>
                 </div>
               </div>
@@ -172,22 +192,29 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <animated.div
-        className="md:hidden fixed inset-y-0 left-0 w-64 bg-gray-800 text-white"
-        style={menuAnimation}
-      >
-        <div className="flex justify-end p-4">
-          <button
-            onClick={toggleMobileNav}
-            className="text-xl bg-slate-50 hover:bg-slate-100 duration-300 p-2 rounded-full dark:bg-slate-700 dark:hover:bg-slate-600"
+      <AnimatePresence>
+        {isMobileNavOpen && (
+          <motion.div
+            className="md:hidden fixed inset-y-0 left-0 w-64 bg-white dark:bg-customBlack"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={menuAnimation}
           >
-            <HiMiniXMark />
-          </button>
-        </div>
-        <nav className="text-center">
-          <ul className="flex flex-col items-center gap-4">{navLinks}</ul>
-        </nav>
-      </animated.div>
+            <div className="flex justify-end p-4">
+              <button
+                onClick={closeMobileNav}
+                className="text-xl bg-slate-50 hover:bg-slate-100 duration-300 p-2 rounded-full dark:bg-slate-700 dark:hover:bg-slate-600"
+              >
+                <HiMiniXMark />
+              </button>
+            </div>
+            <nav className="text-center">
+              <ul className="flex flex-col items-center gap-4">{navLinks}</ul>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
