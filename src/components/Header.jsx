@@ -89,7 +89,7 @@ const Header = () => {
   };
 
   return (
-    <header className="max-w-screen-xl mx-auto py-4 px-4">
+    <header className="max-w-screen-xl mx-auto py-4 px-4 relative z-10">
       <div className="flex items-center justify-between gap-4">
         <Link to="/">
           <img
@@ -125,7 +125,7 @@ const Header = () => {
                       )}
                     </label>
                     {dropdownOpen && (
-                      <ul className="absolute right-0 mt-2 p-4 w-52 border border-slate-100 bg-white rounded-xl shadow-sm dark:bg-slate-800 dark:border-slate-800 space-y-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <ul className="absolute z-2 right-0 mt-2 p-4 w-52 border border-slate-100 bg-white rounded-xl shadow-sm dark:bg-slate-800 dark:border-slate-800 space-y-4 opacity-0 group-hover:opacity-100 transition-opacity">
                         <li className="p-2.5 text-center font-medium">
                           {user.displayName}
                           <hr className="m-2" />
@@ -146,6 +146,15 @@ const Header = () => {
                             className="hover:text-customBlue dark:hover:text-slate-200"
                           >
                             Applied Jobs
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/my-jobs"
+                            onClick={closeDropdown}
+                            className="hover:text-customBlue dark:hover:text-slate-200"
+                          >
+                            My Jobs
                           </Link>
                         </li>
                         <li>
@@ -195,13 +204,13 @@ const Header = () => {
       <AnimatePresence>
         {isMobileNavOpen && (
           <motion.div
-            className="md:hidden fixed inset-y-0 left-0 w-64 bg-white dark:bg-customBlack"
+            className="md:hidden fixed inset-y-0 left-0 w-64 bg-slate-100 dark:bg-slate-800"
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={menuAnimation}
           >
-            <div className="flex justify-end p-4">
+            <div className="flex justify-end p-4 ">
               <button
                 onClick={closeMobileNav}
                 className="text-xl bg-slate-50 hover:bg-slate-100 duration-300 p-2 rounded-full dark:bg-slate-700 dark:hover:bg-slate-600"

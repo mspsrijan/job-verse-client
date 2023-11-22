@@ -1,14 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
+import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Registration from "../pages/Registration";
 import Error from "../pages/Error";
-import Home from "../pages/Home";
-import AllJobs from "../pages/AllJobs";
 import Blogs from "../pages/Blogs";
+import AllJobs from "../pages/AllJobs";
 import Profile from "../pages/Profile";
-import PostAjob from "../pages/PostAjob";
 import AppliedJobs from "../pages/AppliedJobs";
+import PostAjob from "../pages/PostAjob";
+import MyJobs from "../pages/MyJobs";
 
 const routes = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const routes = createBrowserRouter([
       {
         path: "/applied-jobs",
         element: <AppliedJobs></AppliedJobs>,
+      },
+      {
+        path: "/my-jobs",
+        element: <MyJobs></MyJobs>,
       },
       {
         path: "/post-a-job",
