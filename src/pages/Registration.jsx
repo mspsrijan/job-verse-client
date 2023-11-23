@@ -1,14 +1,14 @@
 import { useContext, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 import { AuthContext } from "../providers/AuthProvider";
 import loginIllustration from "../assets/login-illustration.png";
+import Swal from "sweetalert2";
 
 const Registration = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { user, createUser, updateUser } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
 
-  const { user, createUser, updateUser, signInWithGoogle } =
-    useContext(AuthContext);
   const [registrationError, setRegistrationError] = useState(null);
   const [registrationSuccess, setRegistrationSuccess] = useState("");
 
@@ -42,11 +42,19 @@ const Registration = () => {
       .then(() => {
         updateUser(name, photo);
       })
-
-      .then((result) => {
-        if (result.isConfirmed) {
-          navigate(location?.state ? location.state : "/");
-        }
+      .then(() => {
+        const newUser = { name, email };
+        axiosSecure.post("/users", newUser);
+      })
+      .then(() => {
+        return Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Registration Success!",
+          showConfirmButton: false,
+          timer: 1500,
+          iconColor: "#4440DA",
+        });
       })
       .catch((error) => {
         if (error.code === "auth/email-already-in-use") {

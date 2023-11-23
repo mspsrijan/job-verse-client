@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import loginIllustration from "../assets/login-illustration.png";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { user, signIn, signInWithGoogle } = useContext(AuthContext);
@@ -22,12 +23,17 @@ const Login = () => {
 
     signIn(email, password)
       .then(() => {
-        setLoginSuccess("You have been logged in successfully.");
+        return Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Login Success!",
+          showConfirmButton: false,
+          timer: 1500,
+          iconColor: "#4440DA",
+        });
       })
-      .then((result) => {
-        if (result.isConfirmed) {
-          navigate(location?.state ? location.state : "/");
-        }
+      .then(() => {
+        navigate(location?.state && location.state);
       })
       .catch((error) => {
         if (error.code === "auth/invalid-login-credentials") {

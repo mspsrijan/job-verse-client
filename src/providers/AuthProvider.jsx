@@ -10,6 +10,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -41,11 +42,17 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  const axiosSecure = useAxiosSecure();
   const signInWithGoogle = () => {
     setLoading(true);
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).then((result) => {
       setUser(result.user);
+      const newUser = {
+        name: result.user.displayName,
+        email: result.user.email,
+      };
+      axiosSecure.post("/users", newUser);
     });
   };
 
