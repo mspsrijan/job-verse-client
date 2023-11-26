@@ -1,13 +1,13 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+import useaxiosPublic from "../hooks/useAxiosPublic";
 import { AuthContext } from "../providers/AuthProvider";
 import loginIllustration from "../assets/login-illustration.png";
 import Swal from "sweetalert2";
 
 const Registration = () => {
   const { user, createUser, updateUser } = useContext(AuthContext);
-  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useaxiosPublic();
 
   const [registrationError, setRegistrationError] = useState(null);
   const [registrationSuccess, setRegistrationSuccess] = useState("");
@@ -44,7 +44,7 @@ const Registration = () => {
       })
       .then(() => {
         const newUser = { name, email };
-        axiosSecure.post("/users", newUser);
+        axiosPublic.post("/users", newUser);
       })
       .then(() => {
         return Swal.fire({

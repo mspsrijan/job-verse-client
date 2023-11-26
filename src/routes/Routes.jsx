@@ -11,6 +11,7 @@ import AppliedJobs from "../pages/AppliedJobs";
 import PostAjob from "../pages/PostAjob";
 import MyJobs from "../pages/MyJobs";
 import PrivateRoutes from "./PrivateRoutes";
+import SingleJob from "../components/SingleJob";
 
 const routes = createBrowserRouter([
   {
@@ -34,6 +35,12 @@ const routes = createBrowserRouter([
         path: "/all-jobs",
         element: <AllJobs></AllJobs>,
       },
+
+      {
+        path: "/job/:id",
+        element: <SingleJob></SingleJob>,
+      },
+
       {
         path: "/profile",
         element: (
