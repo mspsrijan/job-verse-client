@@ -17,15 +17,15 @@ const PostAJob = () => {
     const selectedDateWithTime = new Date(selectedDate);
     selectedDateWithTime.setUTCHours(23, 59, 0, 0);
 
-    const title = e.target.title.value;
-    const category = e.target.category.value;
-    const salaryRange = e.target.salaryRange.value;
-    const description = e.target.description.value;
-    const photoUrl = e.target.photoUrl.value;
-    const applicationDeadline = selectedDateWithTime;
-    const applicants = e.target.applicants.value;
-    const recruiterName = user.displayName;
-    const recruiterEmail = user.email;
+    let title = e.target.title.value;
+    let category = e.target.category.value;
+    let salaryRange = e.target.salaryRange.value;
+    let description = e.target.description.value;
+    let photoUrl = e.target.photoUrl.value;
+    let applicationDeadline = selectedDateWithTime;
+    let applicants = e.target.applicants.value;
+    let recruiterName = user.displayName;
+    let recruiterEmail = user.email;
 
     const newjob = {
       title,
@@ -41,6 +41,7 @@ const PostAJob = () => {
 
     axiosSecure.post("/jobs", newjob).then((res) => {
       if (res.data.insertedId) {
+        e.target.reset();
         Swal.fire({
           position: "center",
           icon: "success",

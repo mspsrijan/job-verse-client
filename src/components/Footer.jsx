@@ -9,7 +9,7 @@ import {
 
 const Footer = () => {
   return (
-    <div className="bg-customBlack text-white/80 text-sm">
+    <div className="bg-customBlack text-white/80 text-sm border-t-[1px] border-slate-600">
       <section className="flex justify-between flex-col md:flex-row gap-8">
         <div className="flex flex-col gap-2">
           <img
