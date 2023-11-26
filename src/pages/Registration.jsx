@@ -81,10 +81,10 @@ const Registration = () => {
             </h6>
             <div className="mt-4 flex flex-wrap justify-center gap-3">
               <button className="btn btn-outline btn-sm">
-                <Link to="/profile">Profile</Link>
+                <Link to="/applied-jobs">Applied Jobs</Link>
               </button>
               <button className="btn btn-outline btn-sm">
-                <Link to="/applied-jobs">Applied Jobs</Link>
+                <Link to="/my-jobs">My Jobs</Link>
               </button>
               <button className="btn btn-outline btn-sm">
                 <Link to="/post-a-job">Post a Job</Link>

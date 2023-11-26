@@ -130,15 +130,7 @@ const Header = () => {
                           {user.displayName}
                           <hr className="m-2" />
                         </li>
-                        <li>
-                          <Link
-                            to="/profile"
-                            onClick={closeDropdown}
-                            className="hover:text-customBlue dark:hover:text-slate-200"
-                          >
-                            Profile
-                          </Link>
-                        </li>
+                        <li></li>
                         <li>
                           <Link
                             to="/applied-jobs"

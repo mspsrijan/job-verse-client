@@ -6,7 +6,6 @@ import Registration from "../pages/Registration";
 import Error from "../pages/Error";
 import Blogs from "../pages/Blogs";
 import AllJobs from "../pages/AllJobs";
-import Profile from "../pages/Profile";
 import AppliedJobs from "../pages/AppliedJobs";
 import PostAjob from "../pages/PostAjob";
 import MyJobs from "../pages/MyJobs";
@@ -41,15 +40,6 @@ const routes = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <SingleJob></SingleJob>
-          </PrivateRoutes>
-        ),
-      },
-
-      {
-        path: "/profile",
-        element: (
-          <PrivateRoutes>
-            <Profile></Profile>
           </PrivateRoutes>
         ),
       },

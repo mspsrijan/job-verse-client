@@ -13,19 +13,28 @@ const SingleJob = () => {
   const { id } = useParams();
   const [jobDetails, setJobDetails] = useState("");
   const { user } = useContext(AuthContext);
+  const [hasApplied, setHasApplied] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosSecure.get(`/job/${id}`);
-        setJobDetails(response.data);
+        const res = await axiosSecure.get(`/job/${id}`);
+        setJobDetails(res.data);
+
+        if (user) {
+          const response = await axiosSecure.get(
+            `/applied-jobs?email=${user.email}`
+          );
+          const appliedJobs = response.data.map((job) => job.jobId);
+          setHasApplied(appliedJobs.includes(res.data._id));
+        }
       } catch (error) {
         console.error("Error fetching job details:", error);
       }
     };
 
     fetchData();
-  }, [axiosSecure, id]);
+  }, [axiosSecure, id, user]);
 
   const {
     _id,
@@ -60,7 +69,24 @@ const SingleJob = () => {
   const isRecruiter = user.email === recruiterEmail;
   const isDeadlineOver = new Date(applicationDeadline) < new Date();
 
-  const handleApply = () => {
+  const hasUserApplied = async () => {
+    if (user) {
+      const response = await axiosSecure.get(
+        `/applied-jobs?email=${user.email}`
+      );
+      const appliedJobs = response.data.map((job) => job.jobId);
+      return appliedJobs.includes(_id);
+    }
+    return false;
+  };
+
+  const handleApply = async () => {
+    const userHasApplied = await hasUserApplied();
+
+    if (userHasApplied) {
+      return;
+    }
+
     MySwal.fire({
       title: '<div class="font-montserrat">Submit Application</div>',
       html: (
@@ -84,26 +110,34 @@ const SingleJob = () => {
         confirmButton: "btn btn-sm font-montserrat",
         cancelButton: "btn btn-sm btn-outline font-montserrat",
       },
-
       showCancelButton: true,
       confirmButtonText: "Submit Application",
-
       preConfirm: async () => {
-        // You can perform submission logic here
-        // For example, make an API call to submit the application
-        try {
-          // Your API call here
-          // await axios.post('/submit-application', { data: yourData });
+        const resumeLink = document.getElementById("resumeLink").value;
 
-          // Show success message
-          MySwal.fire({
-            position: "center",
-            icon: "success",
-            title: "Submission Success!",
-            showConfirmButton: false,
-            timer: 1500,
-            iconColor: "#4440DA",
-          });
+        const jobApplication = {
+          jobId: _id,
+          title,
+          category,
+          applicantName: user.displayName,
+          applicantEmail: user.email,
+          resumeLink,
+        };
+        try {
+          await axiosSecure
+            .post("/job-applications", jobApplication)
+            .then((res) => {
+              if (res.data.insertedId) {
+                MySwal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "Submission Success!",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  iconColor: "#4440DA",
+                });
+              }
+            });
         } catch (error) {
           MySwal.fire({
             position: "center",
@@ -145,12 +179,18 @@ const SingleJob = () => {
               className={`btn mt-8 ${
                 isDeadlineOver
                   ? "!bg-black/60 !border-black/60 cursor-not-allowed"
+                  : hasApplied
+                  ? "cursor-not-allowed"
                   : ""
               }`}
               onClick={handleApply}
-              disabled={isDeadlineOver}
+              disabled={isDeadlineOver || hasApplied}
             >
-              {isDeadlineOver ? "Deadline Over" : "Apply for the Job"}
+              {isDeadlineOver
+                ? "Deadline Over"
+                : hasApplied
+                ? "Already Applied"
+                : "Apply for the Job"}
             </button>
           )}
         </div>

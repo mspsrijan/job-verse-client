@@ -23,7 +23,7 @@ const PostAJob = () => {
     let description = e.target.description.value;
     let photoUrl = e.target.photoUrl.value;
     let applicationDeadline = selectedDateWithTime;
-    let applicants = e.target.applicants.value;
+    let applicants = parseInt(e.target.applicants.value, 10);
     let recruiterName = user.displayName;
     let recruiterEmail = user.email;
 
