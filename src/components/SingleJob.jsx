@@ -126,8 +126,11 @@ const SingleJob = () => {
         try {
           await axiosSecure
             .post("/job-applications", jobApplication)
-            .then((res) => {
+            .then(async (res) => {
               if (res.data.insertedId) {
+                const updatedJobDetails = await axiosSecure.get(`/job/${id}`);
+                setJobDetails(updatedJobDetails.data);
+                setHasApplied(true);
                 MySwal.fire({
                   position: "center",
                   icon: "success",
@@ -177,19 +180,19 @@ const SingleJob = () => {
           {isRecruiter || (
             <button
               className={`btn mt-8 ${
-                isDeadlineOver
-                  ? "!bg-black/60 !border-black/60 cursor-not-allowed"
-                  : hasApplied
+                hasApplied
                   ? "cursor-not-allowed"
+                  : isDeadlineOver
+                  ? "!bg-black/60 !border-black/60 cursor-not-allowed"
                   : ""
               }`}
               onClick={handleApply}
-              disabled={isDeadlineOver || hasApplied}
+              disabled={hasApplied || isDeadlineOver}
             >
-              {isDeadlineOver
-                ? "Deadline Over"
-                : hasApplied
+              {hasApplied
                 ? "Already Applied"
+                : isDeadlineOver
+                ? "Deadline Over"
                 : "Apply for the Job"}
             </button>
           )}
