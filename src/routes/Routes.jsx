@@ -11,6 +11,7 @@ import PostAjob from "../pages/PostAjob";
 import MyJobs from "../pages/MyJobs";
 import PrivateRoutes from "./PrivateRoutes";
 import SingleJob from "../components/SingleJob";
+import UpdateJob from "../pages/UpdateJob";
 
 const routes = createBrowserRouter([
   {
@@ -64,6 +65,14 @@ const routes = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <PostAjob></PostAjob>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/update-job/:id",
+        element: (
+          <PrivateRoutes>
+            <UpdateJob></UpdateJob>
           </PrivateRoutes>
         ),
       },

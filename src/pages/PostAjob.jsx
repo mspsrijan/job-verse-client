@@ -142,7 +142,7 @@ const PostAJob = () => {
                     <DatePicker
                       selected={selectedDate}
                       onChange={(date) => setSelectedDate(date)}
-                      dateFormat="dd/MM/yyyy"
+                      dateFormat="MM/dd/yyyy"
                       className="w-full py-3 px-4 border border-slate-300 rounded-full text-sm focus:border-customBlue focus:outline-none dark:bg-slate-800 dark:border-slate-700 dark:focus:border-customBlue"
                     />
                   </div>
