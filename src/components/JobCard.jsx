@@ -18,9 +18,7 @@ const JobCard = ({ job }) => {
     recruiterName,
   } = job;
 
-  const formattedPostedDate = postedDate
-    ? new Date(postedDate).toLocaleDateString()
-    : new Date().toLocaleDateString();
+  const formattedPostedDate = new Date(postedDate).toLocaleDateString();
 
   const formattedApplicationDeadline = new Date(
     applicationDeadline

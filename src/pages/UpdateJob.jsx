@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
+import { Bars } from "react-loader-spinner";
 import { AuthContext } from "../providers/AuthProvider";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import weAreHiring from "../assets/we-are-hiring.jpg";
@@ -10,6 +11,7 @@ import { useParams } from "react-router-dom";
 const UpdateJob = () => {
   const { id } = useParams();
   const [jobDetails, setJobDetails] = useState({});
+  const [loading, setLoading] = useState(true);
   const [isPermittedUser, setIsPermittedUser] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
     jobDetails.applicationDeadline
@@ -22,8 +24,10 @@ const UpdateJob = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const res = await axiosSecure.get(`/job/${id}`);
         setJobDetails(res.data);
+        setLoading(false);
 
         if (
           user?.email &&
@@ -43,7 +47,6 @@ const UpdateJob = () => {
 
     fetchData();
   }, [axiosSecure, id, user?.email]);
-  console.log(jobDetails);
 
   const {
     _id,
@@ -95,7 +98,16 @@ const UpdateJob = () => {
 
   return (
     <section>
-      {isPermittedUser ? (
+      {loading ? (
+        <Bars
+          height={80}
+          width={80}
+          color="#4440da"
+          ariaLabel="bars-loading"
+          wrapperClass="mx-auto min-h-[300px] flex items-center justify-center"
+          visible={true}
+        />
+      ) : isPermittedUser ? (
         <div className="flex flex-col md:flex-row items-center gap-8 lg:gap-16">
           <div className="md:w-2/3 lg:w-1/2 flex justify-center">
             <div className="w-full max-w-lg p-6 border border-slate-100 rounded-xl shadow-sm dark:bg-slate-800 dark:border-slate-800">
