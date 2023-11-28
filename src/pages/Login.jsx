@@ -33,7 +33,9 @@ const Login = () => {
         });
       })
       .then(() => {
-        navigate(location?.state && location.state);
+        if (location?.state?.from) {
+          navigate(location.state.from);
+        }
       })
       .catch((error) => {
         if (error.code === "auth/invalid-login-credentials") {

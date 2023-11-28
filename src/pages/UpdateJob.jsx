@@ -231,11 +231,11 @@ const UpdateJob = () => {
           </div>
         </div>
       ) : (
-        <div className="text-center">
-          <p className="text-red-500">
-            You do not have permission to update this job.
+        <section className="max-w-4xl min-h-[250px] text-center flex flex-col justify-center">
+          <p className="text-2xl">
+            Sorry, you do not have permission to edit this job.
           </p>
-        </div>
+        </section>
       )}
     </section>
   );
