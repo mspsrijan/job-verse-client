@@ -1,7 +1,8 @@
-import { useState, useEffect, useMemo, useContext } from "react";
+import { useState, useEffect, useMemo, useContext, useRef } from "react";
 import { useTable, useGlobalFilter } from "react-table";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import generatePDF from "react-to-pdf";
 import { Bars } from "react-loader-spinner";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { AuthContext } from "../providers/AuthProvider";
@@ -9,6 +10,7 @@ import { AuthContext } from "../providers/AuthProvider";
 const AppliedJobs = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const pdfRef = useRef();
   const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
 
@@ -138,6 +140,7 @@ const AppliedJobs = () => {
           <div className="overflow-x-auto">
             {rows.length > 0 ? (
               <table
+                ref={pdfRef}
                 {...getTableProps()}
                 className="w-full table-auto border border-slate-200 dark:border-slate-700 divide-y divide-slate-200 dark:divide-slate-700"
               >
@@ -188,6 +191,16 @@ const AppliedJobs = () => {
                 No jobs found.
               </p>
             )}
+          </div>
+          <div className="mt-8 mb-4">
+            <button
+              onClick={() =>
+                generatePDF(pdfRef, { filename: "Applied-Jobs.pdf" })
+              }
+              className="btn btn-sm btn-outline"
+            >
+              Download Summary
+            </button>
           </div>
         </div>
       ) : (
