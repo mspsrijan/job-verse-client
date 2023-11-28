@@ -112,8 +112,8 @@ const MyJobs = () => {
   const { globalFilter } = state;
 
   return (
-    <section className="text-center">
-      <div className="max-w-5xl mx-auto space-y-4">
+    <section className="">
+      <div className="max-w-5xl mx-auto space-y-4 text-center">
         <h3>
           Review, Edit, and Track <span>Your Posted Jobs</span>
         </h3>
@@ -177,7 +177,7 @@ const MyJobs = () => {
                       <th
                         key={column.id}
                         {...column.getHeaderProps()}
-                        className="px-2 md:px-4 lg:px-6 py-2 md:py-4 lg:py-6 text-center font-semibold"
+                        className="px-2 md:px-4 lg:px-6 py-2 md:py-4 lg:py-6 text-left font-semibold"
                       >
                         {column.render("Header")}
                       </th>
@@ -216,7 +216,7 @@ const MyJobs = () => {
         </div>
       ) : (
         <div className="mt-10">
-          <p className="text-lg font-medium mt-4">
+          <p className="text-lg font-medium mt-4 text-center">
             You haven't posted any jobs yet.
           </p>
         </div>

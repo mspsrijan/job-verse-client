@@ -20,8 +20,6 @@ const AllJobs = () => {
     });
   }, [axiosPublic]);
 
-  console.log(user?.email);
-
   const columns = useMemo(
     () => [
       { Header: "#", accessor: (row, index) => index + 1 },
@@ -90,8 +88,8 @@ const AllJobs = () => {
   const { globalFilter } = state;
 
   return (
-    <section className="text-center">
-      <div className="max-w-5xl mx-auto space-y-4">
+    <section>
+      <div className="max-w-5xl mx-auto space-y-4 text-center">
         <h3>
           Explore <span>Exciting </span>Opportunities
         </h3>
@@ -155,7 +153,7 @@ const AllJobs = () => {
                       <th
                         key={column.id}
                         {...column.getHeaderProps()}
-                        className="px-2 md:px-4 lg:px-6 py-2 md:py-4 lg:py-6 text-center font-semibold"
+                        className="px-2 md:px-4 lg:px-6 py-2 md:py-4 lg:py-6 text-left font-semibold"
                       >
                         {column.render("Header")}
                       </th>

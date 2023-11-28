@@ -179,7 +179,7 @@ const SingleJob = () => {
           <p className="mt-3">Posted by: {recruiterName}</p>
           {isRecruiter || (
             <button
-              className={`btn mt-8 ${
+              className={`btn mt-8 max-w-[300px] ${
                 hasApplied
                   ? "cursor-not-allowed"
                   : isDeadlineOver
