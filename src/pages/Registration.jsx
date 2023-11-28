@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import useaxiosPublic from "../hooks/useAxiosPublic";
 import { AuthContext } from "../providers/AuthProvider";
 import loginIllustration from "../assets/login-illustration.png";
@@ -68,6 +69,9 @@ const Registration = () => {
   };
   return (
     <section className="flex flex-col md:flex-row items-center gap-8 lg:gap-16">
+      <Helmet>
+        <title>JobVerse | Registration</title>
+      </Helmet>
       <div className="md:w-2/3 lg:w-1/2 flex justify-center">
         {user ? (
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8 text-center">

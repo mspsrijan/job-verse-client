@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import { Bars } from "react-loader-spinner";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -157,6 +158,9 @@ const SingleJob = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>JobVerse | {title ? title : "Job Details"}</title>
+      </Helmet>
       <section className="flex flex-col lg:flex-row gap-8 lg:gap-16">
         <div className="w-full lg:w-1/2">
           <img src={photoUrl} alt={title} />

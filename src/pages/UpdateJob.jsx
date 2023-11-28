@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
@@ -98,6 +99,9 @@ const UpdateJob = () => {
 
   return (
     <section>
+      <Helmet>
+        <title>JobVerse | Update Job</title>
+      </Helmet>
       {loading ? (
         <Bars
           height={80}

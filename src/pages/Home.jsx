@@ -1,12 +1,16 @@
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import Hero from "../components/Hero";
 import JobsTabs from "../components/JobsTabs";
 import Testimonials from "../components/Testimonials";
 import happyGoodLookingManinGlassesPointingFingerLeft from "../assets/happy-good-looking-man-in-glasses-pointing-finger-left.png";
-import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
     <>
+      <Helmet>
+        <title>JobVerse | Home</title>
+      </Helmet>
       <Hero></Hero>
       <div className="bg-[#F5F7FB] dark:bg-slate-900">
         <section className="flex flex-col justify-center items-center text-center gap-6">

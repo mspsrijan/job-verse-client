@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useContext, useCallback } from "react";
 import { useTable, useGlobalFilter } from "react-table";
 import { Link } from "react-router-dom";
 import { Bars } from "react-loader-spinner";
+import { Helmet } from "react-helmet";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { AuthContext } from "../providers/AuthProvider";
@@ -112,7 +113,10 @@ const MyJobs = () => {
   const { globalFilter } = state;
 
   return (
-    <section className="">
+    <section>
+      <Helmet>
+        <title>JobVerse | My Jobs</title>
+      </Helmet>
       <div className="max-w-5xl mx-auto space-y-4 text-center">
         <h3>
           Review, Edit, and Track <span>Your Posted Jobs</span>

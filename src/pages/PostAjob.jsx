@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { Helmet } from "react-helmet";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
@@ -58,6 +59,9 @@ const PostAJob = () => {
 
   return (
     <section className="flex flex-col md:flex-row items-center gap-8 lg:gap-16">
+      <Helmet>
+        <title>JobVerse | Post a Job</title>
+      </Helmet>
       <div className="md:w-2/3 lg:w-1/2 flex justify-center">
         <div className="w-full max-w-lg p-6 border border-slate-100 rounded-xl shadow-sm dark:bg-slate-800 dark:border-slate-800">
           <div className="text-center">

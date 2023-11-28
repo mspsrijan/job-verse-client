@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useMemo, useContext } from "react";
+import { useState, useEffect, useMemo, useContext } from "react";
 import { useTable, useGlobalFilter } from "react-table";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import { Bars } from "react-loader-spinner";
-import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { AuthContext } from "../providers/AuthProvider";
-import Swal from "sweetalert2";
 
 const AppliedJobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -74,7 +73,10 @@ const AppliedJobs = () => {
   const { globalFilter } = state;
 
   return (
-    <section className="">
+    <section>
+      <Helmet>
+        <title>JobVerse | Applied Jobs</title>
+      </Helmet>
       <div className="max-w-5xl mx-auto space-y-4 text-center">
         <h3>
           Your Job Journey:<span> Applied Jobs</span>

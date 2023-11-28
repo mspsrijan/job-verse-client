@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useContext } from "react";
 import { useTable, useGlobalFilter } from "react-table";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import { Bars } from "react-loader-spinner";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../hooks/useAxiosPublic";
@@ -89,6 +90,9 @@ const AllJobs = () => {
 
   return (
     <section>
+      <Helmet>
+        <title>JobVerse | All Jobs</title>
+      </Helmet>
       <div className="max-w-5xl mx-auto space-y-4 text-center">
         <h3>
           Explore <span>Exciting </span>Opportunities
