@@ -28,7 +28,7 @@ const Footer = () => {
           </div>
           <div className="text-base flex flex-col items-start md:items-end gap-2">
             <div className="flex gap-2 items-center flex-row-reverse md:flex-row">
-              <p>info@jobversee.com</p>
+              <p>info@jobverse.com</p>
               <FaAt />
             </div>
             <div className="flex gap-2 items-center flex-row-reverse md:flex-row">

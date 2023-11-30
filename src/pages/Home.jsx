@@ -30,7 +30,7 @@ const Home = () => {
       </section>
 
       <div className="bg-customBlue dark:bg-slate-900 text-white">
-        <section className="text-center flex flex-col lg:flex-row justify-center items-center pb-0 gap-10 lg:gap-24">
+        <section className="text-center flex flex-col lg:flex-row justify-center items-center lg:pb-0 gap-10 lg:gap-24">
           <img
             src={happyGoodLookingManinGlassesPointingFingerLeft}
             alt=""

@@ -139,8 +139,8 @@ const Testimonials = () => {
           </SwiperSlide>
         </Swiper>
 
-        <div className="swiper-button-next absolute top-1/2 !-right-8 transform -translate-y-1/2 !text-customBlue after:!text-xl"></div>
-        <div className="swiper-button-prev absolute top-1/2 !-left-8 transform -translate-y-1/2 !text-customBlue after:!text-xl"></div>
+        <div className="swiper-button-next absolute top-1/2 !-right-4 lg:!-right-8 transform -translate-y-1/2 !text-customBlue after:!text-xl"></div>
+        <div className="swiper-button-prev absolute top-1/2 !-left-4 lg:!-left-8 transform -translate-y-1/2 !text-customBlue after:!text-xl"></div>
       </div>
     </div>
   );

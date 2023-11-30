@@ -6,7 +6,7 @@ import loginIllustration from "../assets/login-illustration.png";
 import Swal from "sweetalert2";
 
 const Login = () => {
-  const { user, signIn, signInWithGoogle } = useContext(AuthContext);
+  const { user, signIn } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
 
